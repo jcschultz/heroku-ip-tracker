@@ -36,7 +36,7 @@ router.put('/:name', function (req, res, next) {
 	}
 	
 	if (secret !== process.env.IP_SECRET) {
-		return res.status(403).send('None shall pass!');
+		return res.status(403).send(req.body);
 	}
 	
 	IpAddress.findOneAndUpdate({name : name}, {$set : {name: name, address: requestAddress}}, {upsert: true, new: true})
