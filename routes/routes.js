@@ -9,13 +9,13 @@ router.get('/', function (req, res, next) {
 router.get('/:name', function (req, res, next) {
 	var name = req.params.name;
 	
-	IpAddress.findOne({name : name}, 'address')
+	IpAddress.findOne({name : name})
 		.then((doc) => {
 			if (!doc) {
 				return res.status(404).send('Address could not be found');
 			}
 			
-			res.json(doc);
+			res.send(doc.address);
 		})
 		.catch((err) => {
 			res.status(400).send(err);
@@ -36,7 +36,7 @@ router.put('/:name', function (req, res, next) {
 	}
 	
 	if (secret !== process.env.IP_SECRET) {
-		return res.status(403).send(req.body);
+		return res.status(403).send('None shall pass!');
 	}
 	
 	IpAddress.findOneAndUpdate({name : name}, {$set : {name: name, address: requestAddress}}, {upsert: true, new: true})
