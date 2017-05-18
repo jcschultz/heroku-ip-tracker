@@ -15,7 +15,7 @@ router.get('/:name', function (req, res, next) {
 				return res.status(404).send();
 			}
 			
-			res.json(doc.address);
+			res.json({address: doc.address});
 		})
 		.catch((err) => {
 			res.status(400).send(err);
