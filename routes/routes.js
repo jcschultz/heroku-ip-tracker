@@ -12,7 +12,7 @@ router.get('/:name', function (req, res, next) {
 	IpAddress.findOne({name : name})
 		.then((doc) => {
 			if (!doc) {
-				return res.status(404);
+				return res.status(404).send();
 			}
 			
 			res.send(doc.address);
